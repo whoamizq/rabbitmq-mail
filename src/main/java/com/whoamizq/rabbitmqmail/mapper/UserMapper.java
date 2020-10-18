@@ -5,4 +5,6 @@ import com.whoamizq.rabbitmqmail.service.batch.BatchProcessMapper;
 
 public interface UserMapper extends BatchProcessMapper<User> {
     void insert(User user);
+
+    void update(User user);
 }

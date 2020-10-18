@@ -11,7 +11,18 @@
         id,username,password
     </sql>
     
-    <insert id="insert">
+    <insert id="insert" parameterType="com.whoamizq.rabbitmqmail.pojo.User">
         INSERT INTO user(username,password) VALUES (#{username},#{password})
     </insert>
+
+    <update id="update" parameterType="com.whoamizq.rabbitmqmail.pojo.User">
+        UPDATE user SET
+        <if test="username != null">
+            username = #{username},
+        </if>
+        <if test="password != null">
+            password = #{password},
+        </if>
+        WHERE id = #{id}
+    </update>
 </mapper>
