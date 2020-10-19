@@ -10,6 +10,19 @@
     <sql id="Base_Column_List">
         id,username,password
     </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+    </select>
+    
+    <select id="selectOne" parameterType="int" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+        WHERE id = #{id}
+    </select>
     
     <insert id="insert" parameterType="com.whoamizq.rabbitmqmail.pojo.User">
         INSERT INTO user(username,password) VALUES (#{username},#{password})
@@ -25,4 +38,8 @@
         </if>
         WHERE id = #{id}
     </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM user WHERE id = #{id}
+    </delete>
 </mapper>
