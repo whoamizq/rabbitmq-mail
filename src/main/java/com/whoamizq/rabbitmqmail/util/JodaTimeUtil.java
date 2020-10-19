@@ -42,5 +42,45 @@ public class JodaTimeUtil {
         return dateTime.toString(format);
     }
 
+    /**
+     * 日期加分钟
+     * @param date
+     * @param minutes
+     * @return
+     */
+    public static Date plusMinutes(Date date, int minutes) {
+        return plusOrMinusMinutes(date, minutes, 0);
+    }
 
+    /**
+     * 日期减分钟
+     * @param date
+     * @param minutes
+     * @return
+     */
+    public static Date minusMinutes(Date date, int minutes){
+        return plusOrMinusMinutes(date, minutes, 1);
+    }
+
+    /**
+     * 加减分钟
+     * @param date
+     * @param minutes
+     * @param type 0:加，1：减
+     * @return
+     */
+    private static Date plusOrMinusMinutes(Date date, int minutes, int type) {
+        if (null == date){
+            date = new Date();
+        }
+
+        DateTime dateTime = new DateTime(date);
+        if (type == 0){
+            dateTime = dateTime.plusMinutes(minutes);
+        }else {
+            dateTime = dateTime.minusMinutes(minutes);
+        }
+
+        return dateTime.toDate();
+    }
 }
