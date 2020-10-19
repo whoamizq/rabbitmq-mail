@@ -1,5 +1,6 @@
 package com.whoamizq.rabbitmqmail.service;
 
+import com.whoamizq.rabbitmqmail.common.ServerResponse;
 import com.whoamizq.rabbitmqmail.pojo.User;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UserService {
     List<User> getAll();
 
     User getOne(Integer id);
+
+    ServerResponse login(String username, String password);
 }

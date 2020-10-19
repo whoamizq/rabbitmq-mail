@@ -1,5 +1,6 @@
 package com.whoamizq.rabbitmqmail.controller;
 
+import com.whoamizq.rabbitmqmail.common.ServerResponse;
 import com.whoamizq.rabbitmqmail.pojo.User;
 import com.whoamizq.rabbitmqmail.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author: whoamizq
+ * @description: 用户登录等
+ * @date: 10:58 2020/10/19
+ **/
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -47,5 +53,17 @@ public class UserController {
     public String delete(@PathVariable Integer id) {
         userService.delete(id);
         return "nice";
+    }
+
+    /**
+     * @author: whoamizq
+     * @description: 用户登录
+     * @date: 11:00 2020/10/19
+     * @param: [username, password]
+     * @return: com.whoamizq.rabbitmqmail.common.ServerResponse
+     **/
+    @PostMapping("login")
+    public ServerResponse login(String username,String password){
+        return userService.login(username,password);
     }
 }

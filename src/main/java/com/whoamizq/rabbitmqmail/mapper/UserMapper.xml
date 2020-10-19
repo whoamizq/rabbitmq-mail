@@ -42,4 +42,9 @@
     <delete id="delete" parameterType="int">
         DELETE FROM user WHERE id = #{id}
     </delete>
+
+    <select id="selectByUsernameAndPassword" resultMap="BaseResultMap" parameterType="String">
+        SELECT <include refid="Base_Column_List"/>
+        FROM user WHERE username = #{username} AND password = #{password}
+    </select>
 </mapper>
