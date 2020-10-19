@@ -12,4 +12,13 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     </resultMap>
+
+    <sql id="Base_Column_List" >
+        msg_id, msg, exchange, routing_key, status, try_count, next_try_time, create_time, update_time
+    </sql>
+
+    <insert id="insert" parameterType="com.whoamizq.rabbitmqmail.pojo.MsgLog">
+        INSERT INTO msg_log(msg_id, msg, exchange, routing_key, status, try_count, next_try_time, create_time, update_time)
+        VALUES (#{msgId}, #{msg}, #{exchange}, #{routingKey}, #{status}, #{tryCount}, #{nextTryTime}, #{createTime}, #{updateTime})
+    </insert>
 </mapper>
