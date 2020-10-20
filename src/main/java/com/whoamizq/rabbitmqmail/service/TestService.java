@@ -4,4 +4,6 @@ import com.whoamizq.rabbitmqmail.common.ServerResponse;
 
 public interface TestService {
     ServerResponse testIdempotence();
+
+    ServerResponse accessLimit();
 }
