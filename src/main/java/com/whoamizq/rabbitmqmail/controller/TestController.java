@@ -42,7 +42,20 @@ public class TestController {
         return testService.accessLimit();
     }
 
-//    public ServerResponse sendMail(@Validated Mail mail, Errors errors){
-//
-//    }
+    /**
+     * @author: whoamizq
+     * @description: 发送邮件
+     * @date: 10:04 2020/10/20
+     * @param: [mail, errors]
+     * @return: com.whoamizq.rabbitmqmail.common.ServerResponse
+     **/
+    @PostMapping("send")
+    public ServerResponse sendMail(@Validated Mail mail, Errors errors){
+        if (errors.hasErrors()){
+            String msg = errors.getFieldError().getDefaultMessage();
+            return ServerResponse.error(msg);
+        }
+
+        return testService.send(mail);
+    }
 }
