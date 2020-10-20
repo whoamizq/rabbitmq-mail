@@ -12,4 +12,8 @@
     <sql id="Base_Column_List" >
         id, user_id, type, description, create_time, update_time
     </sql>
+    <insert id="insert" parameterType="com.whoamizq.rabbitmqmail.pojo.LoginLog">
+        INSERT INTO login_log(user_id,type,description, create_time, update_time)
+        VALUES (#{userId},#{type},#{description},#{createTime},#{updateTime})
+    </insert>
 </mapper>
