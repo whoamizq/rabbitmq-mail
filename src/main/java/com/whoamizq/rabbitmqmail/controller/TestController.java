@@ -132,6 +132,13 @@ public class TestController {
         return ServerResponse.success();
     }
 
+    /**
+     * @author: whoamizq
+     * @description: 测试同步批量插入
+     * @date: 13:45 2020/10/20
+     * @param: []
+     * @return: com.whoamizq.rabbitmqmail.common.ServerResponse
+     **/
     @PostMapping("sync")
     public ServerResponse sync(){
         List<User> list = Lists.newArrayList();
