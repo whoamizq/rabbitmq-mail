@@ -11,6 +11,7 @@ import com.whoamizq.rabbitmqmail.pojo.LoginLog;
 import com.whoamizq.rabbitmqmail.pojo.MsgLog;
 import com.whoamizq.rabbitmqmail.pojo.User;
 import com.whoamizq.rabbitmqmail.service.UserService;
+import com.whoamizq.rabbitmqmail.service.batch.mapperProxy.MapperProxy;
 import com.whoamizq.rabbitmqmail.util.JodaTimeUtil;
 import com.whoamizq.rabbitmqmail.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -74,6 +75,17 @@ public class UserServiceImpl implements UserService {
         saveAndSendMsg(user);
         return ServerResponse.success();
     }
+
+    @Override
+    public void batchInsert(List<User> list) {
+        new MapperProxy<User>(userMapper).batchInsert(list);
+    }
+
+    @Override
+    public void batchUpdate(List<User> list) {
+        new MapperProxy<User>(userMapper).batchUpdate(list);
+    }
+
     /**
      * @author: whoamizq
      * @description: 保存并发送消息
