@@ -47,4 +47,40 @@
         SELECT <include refid="Base_Column_List"/>
         FROM user WHERE username = #{username} AND password = #{password}
     </select>
+
+    <insert id="batchInsert" parameterType="list">
+        INSERT INTO user(username,password,password2,password3,password4,password5,password6,
+        password7,password8,password9,password10) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.username},#{item.password},#{item.password2},#{item.password4},#{item.password5},
+            #{item.password6},#{item.password7},#{item.password8},#{item.password9},#{item.password10},)
+        </foreach>
+    </insert>
+    
+    <update id="batchUpdate" parameterType="list">
+        UPDATE user
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="username=case" suffixOverrides="end,">
+                <foreach collection="list" item="item" index="index">
+                    WHEN id=#{item.id}
+                    THEN #{item.username}
+                </foreach>
+            </trim>
+            <trim prefix="password=case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    WHEN id = #{item.id} THEN #{item.password}
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id IN
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+    
+    <select id="selectByUsername" resultType="com.whoamizq.rabbitmqmail.pojo.User">
+        SELECT <include refid="Base_Column_List"/>
+        FROM user
+        WHERE username = #{username}
+    </select>
 </mapper>

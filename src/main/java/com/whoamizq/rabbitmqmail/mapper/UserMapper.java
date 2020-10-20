@@ -18,4 +18,6 @@ public interface UserMapper extends BatchProcessMapper<User> {
     User selectOne(Integer id);
 
     User selectByUsernameAndPassword(@Param("username") String username,@Param("password") String password);
+
+    User selectByUsername(String username);
 }
