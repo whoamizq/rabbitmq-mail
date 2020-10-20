@@ -4,9 +4,11 @@ import com.google.common.collect.Lists;
 import com.whoamizq.rabbitmqmail.annotation.AccessLimit;
 import com.whoamizq.rabbitmqmail.annotation.ApiIdempotence;
 import com.whoamizq.rabbitmqmail.common.ServerResponse;
+import com.whoamizq.rabbitmqmail.mapper.UserMapper;
 import com.whoamizq.rabbitmqmail.pojo.Mail;
 import com.whoamizq.rabbitmqmail.pojo.User;
 import com.whoamizq.rabbitmqmail.service.TestService;
+import com.whoamizq.rabbitmqmail.service.batch.mapperProxy.MapperProxy;
 import com.whoamizq.rabbitmqmail.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ import java.util.List;
 public class TestController {
     @Autowired
     private TestService testService;
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * @author: whoamizq
@@ -83,6 +87,21 @@ public class TestController {
 
         long startTime = System.nanoTime();
         log.info("batch insert costs: {} ms",(System.nanoTime()-startTime)/1000000);
+
+        return ServerResponse.success();
+    }
+
+    @PostMapping("batchInsert")
+    public ServerResponse batchInsert(int size){
+        List<User> list = Lists.newArrayList();
+
+        for (int i=0; i<size; i++){
+            String str = RandomUtil.UUID32();
+            User user = User.builder().username(str).password(str).build();
+            list.add(user);
+        }
+
+        new MapperProxy<User>(userMapper).batchInsert(list);
 
         return ServerResponse.success();
     }

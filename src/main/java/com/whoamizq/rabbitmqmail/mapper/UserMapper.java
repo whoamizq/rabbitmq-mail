@@ -2,6 +2,7 @@ package com.whoamizq.rabbitmqmail.mapper;
 
 import com.whoamizq.rabbitmqmail.pojo.User;
 import com.whoamizq.rabbitmqmail.service.batch.BatchProcessMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface UserMapper extends BatchProcessMapper<User> {
 
     User selectOne(Integer id);
 
-    User selectByUsernameAndPassword(String username, String password);
+    User selectByUsernameAndPassword(@Param("username") String username,@Param("password") String password);
 }
