@@ -91,6 +91,11 @@ public class TestController {
         return ServerResponse.success();
     }
 
+    /**
+     * @author: whoamizq
+     * @description: 批量插入
+     * @date: 11:46 2020/10/20
+     **/
     @PostMapping("batchInsert")
     public ServerResponse batchInsert(int size){
         List<User> list = Lists.newArrayList();
@@ -102,7 +107,28 @@ public class TestController {
         }
 
         new MapperProxy<User>(userMapper).batchInsert(list);
-
+        log.info("批量插入成功---------");
         return ServerResponse.success();
     }
+
+    /**
+     * @author: whoamizq
+     * @description: 批量更新
+     * @date: 11:45 2020/10/20
+     **/
+    @PostMapping("batchUpdate")
+    public ServerResponse batchUpdate(String ids){
+        List<User> list = Lists.newArrayList();
+
+        String[] split = ids.split(",");
+        for (String id : split){
+            User user = User.builder().id(Integer.parseInt(id)).username("batchUpdate_"+RandomUtil.UUID32()).password("123456").build();
+            list.add(user);
+        }
+
+        new MapperProxy<User>(userMapper).batchUpdate(list);
+        log.info("批量更新成功---------");
+        return ServerResponse.success();
+    }
+
 }

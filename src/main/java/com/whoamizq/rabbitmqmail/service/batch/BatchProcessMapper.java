@@ -1,5 +1,9 @@
 package com.whoamizq.rabbitmqmail.service.batch;
 
-public interface BatchProcessMapper<T> {
+import java.util.List;
 
+public interface BatchProcessMapper<T> {
+    void batchInsert(List<T> list);
+
+    void batchUpdate(List<T> list);
 }
