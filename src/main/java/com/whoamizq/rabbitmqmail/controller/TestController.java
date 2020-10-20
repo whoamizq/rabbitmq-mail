@@ -1,10 +1,13 @@
 package com.whoamizq.rabbitmqmail.controller;
 
+import com.google.common.collect.Lists;
 import com.whoamizq.rabbitmqmail.annotation.AccessLimit;
 import com.whoamizq.rabbitmqmail.annotation.ApiIdempotence;
 import com.whoamizq.rabbitmqmail.common.ServerResponse;
 import com.whoamizq.rabbitmqmail.pojo.Mail;
+import com.whoamizq.rabbitmqmail.pojo.User;
 import com.whoamizq.rabbitmqmail.service.TestService;
+import com.whoamizq.rabbitmqmail.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
@@ -12,6 +15,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/test")
@@ -57,5 +62,28 @@ public class TestController {
         }
 
         return testService.send(mail);
+    }
+
+    /**
+     * @author: whoamizq
+     * @description: 测试当线程批量执行操作时间
+     * @date: 11:05 2020/10/20
+     * @param: [size]
+     * @return: com.whoamizq.rabbitmqmail.common.ServerResponse
+     **/
+    @PostMapping("single")
+    public ServerResponse single(int size){
+        List<User> list = Lists.newArrayList();
+
+        for (int i=0; i<size; i++){
+            String str = RandomUtil.UUID32();
+            User user = User.builder().username(str).password(str).build();
+            list.add(user);
+        }
+
+        long startTime = System.nanoTime();
+        log.info("batch insert costs: {} ms",(System.nanoTime()-startTime)/1000000);
+
+        return ServerResponse.success();
     }
 }
