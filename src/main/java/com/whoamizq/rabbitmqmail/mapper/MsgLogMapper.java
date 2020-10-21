@@ -6,4 +6,8 @@ import com.whoamizq.rabbitmqmail.service.batch.BatchProcessMapper;
 public interface MsgLogMapper extends BatchProcessMapper<MsgLog> {
 
     void insert(MsgLog msgLog);
+
+    MsgLog selectByPrimaryKey(String msgId);
+
+    void updateStatus(MsgLog msgLog);
 }

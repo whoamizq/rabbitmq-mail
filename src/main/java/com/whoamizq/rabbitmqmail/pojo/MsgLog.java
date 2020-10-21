@@ -3,11 +3,15 @@ package com.whoamizq.rabbitmqmail.pojo;
 import com.whoamizq.rabbitmqmail.common.Constant;
 import com.whoamizq.rabbitmqmail.util.JodaTimeUtil;
 import com.whoamizq.rabbitmqmail.util.JsonUtil;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class MsgLog {
     private String msgId;
     private String msg;

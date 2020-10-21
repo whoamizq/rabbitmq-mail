@@ -21,4 +21,15 @@
         INSERT INTO msg_log(msg_id, msg, exchange, routing_key, status, try_count, next_try_time, create_time, update_time)
         VALUES (#{msgId}, #{msg}, #{exchange}, #{routingKey}, #{status}, #{tryCount}, #{nextTryTime}, #{createTime}, #{updateTime})
     </insert>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM msg_log
+        WHERE msg_id = #{msgId,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateStatus" parameterType="com.whoamizq.rabbitmqmail.pojo.MsgLog">
+        UPDATE msg_log SET status = #{status}, update_time = now()
+        WHERE msg_id = #{msgId}
+    </update>
 </mapper>
