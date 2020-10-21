@@ -1,6 +1,7 @@
 package com.whoamizq.rabbitmqmail.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -54,6 +55,18 @@ public class JsonUtil {
             return clazz.equals(String.class) ? (T) str : objectMapper.readValue(str, clazz);
         }catch (Exception e){
             log.warn("strToObj error:",e);
+            return null;
+        }
+    }
+
+    public static <T> T strToObj(String str, TypeReference<T> typeReference){
+        if (StringUtils.isBlank(str) || null==typeReference){
+            return null;
+        }
+        try{
+            return (T)(typeReference.getType().equals(String.class) ? str:objectMapper.readValue(str, typeReference));
+        }catch (Exception e) {
+            log.error("strToObj error: ",e);
             return null;
         }
     }

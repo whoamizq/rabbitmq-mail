@@ -1,10 +1,13 @@
 package com.whoamizq.rabbitmqmail.pojo;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
-@Data
 @Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class User {
     private Integer id;
     private String username;
