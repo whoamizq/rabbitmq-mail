@@ -24,10 +24,10 @@ spring:
     timeout: 0
   #RabbitMQ
   rabbitmq:
-    port: 5679
+    port: 5672
     host: localhost
-    username:
-    password:
+    username: # guest
+    password: # guest
     publisher-returns: true  # 开启returnedMessage回调 Exchange -> Queue
     publisher-confirm-type: correlated # 新版发布特性，默认none，correlated相当于开启confirms回调 P->Exchange
     listener:
@@ -35,10 +35,10 @@ spring:
         acknowledge-mode: manual # 设置手动确认(ack) Queue -> C
         prefetch: 100
   mail:  # mail  password即授权码，username和from要一致
-    host:
-    username:
+    host: smtp.163.com
+    username: # 邮箱
     password:
-    from:
+    from: #
     properties:
       mail:
         smtp:
@@ -51,4 +51,4 @@ logging:
     com:
       whoamizq:
         rabbitmqmail:
-          mapper: info
+          mapper: debug
