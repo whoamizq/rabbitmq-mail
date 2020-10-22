@@ -4,7 +4,7 @@ import com.rabbitmq.client.Channel;
 import com.whoamizq.rabbitmqmail.config.RabbitConfig;
 import com.whoamizq.rabbitmqmail.mq.BaseConsumer;
 import com.whoamizq.rabbitmqmail.mq.BaseConsumerProxy;
-import com.whoamizq.rabbitmqmail.mq.consumer.MailConsumer;
+import com.whoamizq.rabbitmqmail.mq.consumer.LoginLogConsumer;
 import com.whoamizq.rabbitmqmail.service.MsgLogService;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -14,21 +14,23 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- * 邮件监听事件
- */
+ * @author: whoamizq
+ * @description: 登录监听事件
+ * @date: 9:51 2020/10/22
+ **/
 @Component
-public class MailListener {
+public class LoginLogListener {
     @Autowired
-    private MailConsumer mailConsumer;
+    private LoginLogConsumer loginLogConsumer;
     @Autowired
     private MsgLogService msgLogService;
 
-    @RabbitListener(queues = RabbitConfig.MAIL_QUEUE_NAME)
+    @RabbitListener(queues = RabbitConfig.LOGIN_LOG_QUEUE_NAME)
     public void consume(Message message, Channel channel) throws IOException {
-        BaseConsumerProxy baseConsumerProxy = new BaseConsumerProxy(mailConsumer, msgLogService);
+        BaseConsumerProxy baseConsumerProxy = new BaseConsumerProxy(loginLogConsumer, msgLogService);
         BaseConsumer proxy = (BaseConsumer) baseConsumerProxy.getProxy();
         if (null != proxy){
-            proxy.consume(message,channel);
+            proxy.consume(message, channel);
         }
     }
 }
