@@ -32,4 +32,16 @@
         UPDATE msg_log SET status = #{status}, update_time = now()
         WHERE msg_id = #{msgId}
     </update>
+
+    <select id="selectTimeoutMsg" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM msg_log
+        WHERE status=0
+        AND next_try_time &lt; = now()
+    </select>
+    
+    <update id="updateTryCount">
+        UPDATE msg_log SET try_count = try_count+1, next_try_time = #{nextTryTime}, update_time = now()
+        WHERE msg_id = #{msgId}
+    </update>
 </mapper>
