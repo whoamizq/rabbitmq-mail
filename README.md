@@ -8,6 +8,8 @@
 4. 消费的幂等性，等等
 ```
 
+![](src/main/resources/static/image/liucheng.png)
+
 ## 一、实现思路
 1. 简略介绍163邮箱授权码的获取
 2. 编写发送邮件工具类
@@ -294,3 +296,19 @@
     
     }
     ```
+   
+## 三、基本测试
+1. 发送请求：
+![](src/main/resources/static/image/qingqiu.png)
+
+2. 后台日志：
+![](src/main/resources/static/image/log.png)
+
+3. 数据库消费记录：
+![](src/main/resources/static/image/msg-log.png)
+
+    `状态为3，表明已消费，消费重试次数为0，表明一次投递成功`
+
+4. 查看邮箱：
+![](src/main/resources/static/image/mail-msg.png)
+发送成功

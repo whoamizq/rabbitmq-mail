@@ -3,15 +3,15 @@ package com.whoamizq.rabbitmqmail.config;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author: whoamizq
  * @description: redis连接配置
  * @date: 13:57 2020/10/20
  **/
-@Configurable
+@Configuration
 public class RedissonConfig {
     @Value("${spring.redis.host}")
     private String host;
