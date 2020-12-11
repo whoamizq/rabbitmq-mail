@@ -37,7 +37,7 @@
         SELECT <include refid="Base_Column_List"/>
         FROM msg_log
         WHERE status=0
-        AND next_try_time &lt; = now()
+        AND next_try_time &lt; now()
     </select>
     
     <update id="updateTryCount">

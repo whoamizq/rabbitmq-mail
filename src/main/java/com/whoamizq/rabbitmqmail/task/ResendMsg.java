@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 //@Component
 @Slf4j
+//@EnableScheduling
 public class ResendMsg {
     @Autowired
     private MsgLogService msgLogService;
@@ -27,7 +29,7 @@ public class ResendMsg {
     /**
      * 每30s拉取投递失败的消息，重新投递
      */
-    @Scheduled(cron = "0/30 * * * * ?")
+    @Scheduled(cron = "*/30 * * * * ?")
     public void resend(){
         log.info("开始执行定时任务(重新投递消息)");
 
